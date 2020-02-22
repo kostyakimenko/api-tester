@@ -4,42 +4,18 @@
 namespace app\Tests;
 
 
-use app\Contracts\ClientInterface;
 use app\Helpers\Config;
+use app\Helpers\CurlClient;
 
 class TestFactory
 {
-    /**
-     * @var ClientInterface
-     */
-    protected $client;
-
-    /**
-     * @var string
-     */
-    protected $testName;
-
-    /**
-     * TestFactory constructor.
-     * @param string $testName
-     * @param ClientInterface $client
-     */
-    public function __construct(string $testName, ClientInterface $client)
+    public static function make(string $testName): TestAbstract
     {
-        $this->testName = $testName;
-        $this->client = $client;
-    }
-
-    /**
-     * Make test object
-     * @return TestAbstract
-     */
-    public function make(): TestAbstract
-    {
+        $client = new CurlClient();
         $config = Config::getInstance();
-        $tester = $config->getTesterClass($this->testName);
-        $testerConfig = $config->getTesterConfig($this->testName);
+        $tester = $config->getTesterClass($testName);
+        $testerConfig = $config->getTesterConfig($testName);
 
-        return new $tester($this->client, $testerConfig);
+        return new $tester($client, $testerConfig);
     }
 }
