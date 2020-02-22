@@ -20,12 +20,6 @@ abstract class TestAbstract
 
     abstract public function run();
 
-    protected function printResult()
-    {
-        Log::result('All tests: ' . $this->testCount);
-        Log::result('Passed tests: ' . ($this->testCount - $this->errorCount));
-    }
-
     protected function assertStatus(int $actual, int $expected)
     {
         $logMessage = "expected status: $expected; actual status: $actual";
@@ -50,5 +44,11 @@ abstract class TestAbstract
             Log::error($message);
             $this->errorCount++;
         }
+    }
+
+    protected function printResult()
+    {
+        Log::result('All tests: ' . $this->testCount);
+        Log::result('Passed tests: ' . ($this->testCount - $this->errorCount));
     }
 }
