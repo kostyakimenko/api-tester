@@ -20,32 +20,24 @@ abstract class TestAbstract
 
     abstract public function run();
 
-    protected function increaseCounter(bool $isError = false)
-    {
-        $this->testCount++;
-
-        if ($isError) {
-            $this->errorCount++;
-        }
-    }
-
-    protected function printTestResult(array $data, bool $isError = false)
-    {
-        if ($isError) {
-            Log::error('Status: error');
-        } else {
-            Log::success('Status: OK');
-        }
-
-        Log::info('Code: ' . $data['code']);
-        Log::info('Time: ' . $data['time']);
-        Log::info('Data: ' . $data['data']);
-        Log::info('');
-    }
-
     protected function printFinishResult()
     {
         Log::result('All test: ' . $this->testCount);
         Log::result('Passed test: ' . ($this->testCount - $this->errorCount));
+    }
+
+    protected function assertResponseStatus(int $actual, int $expected)
+    {
+        $this->testCount++;
+
+        Log::info('Checking response status...');
+        $logMessage = "expected: $expected; actual: $actual";
+
+        if ($actual === $expected) {
+            Log::success($logMessage);
+        } else {
+            Log::error($logMessage);
+            $this->errorCount++;
+        }
     }
 }

@@ -51,8 +51,6 @@ class TestLevel3 extends TestAbstract
             'search' => $search
         ]);
 
-        $isError = $response['code'] !== 200;
-        $this->printTestResult($response, $isError);
-        $this->increaseCounter($isError);
+        $this->assertResponseStatus($response['code'], 200);
     }
 }
