@@ -53,5 +53,7 @@ class TestLevel3 extends TestAbstract
 
         $this->assertStatus($response['code'], 200);
         $this->assertData($response['data'], []);
+
+        Log::delimiter();
     }
 }
