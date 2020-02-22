@@ -42,7 +42,7 @@ class CurlClient implements ClientInterface
         curl_close($curl);
 
         return [
-            'data' => $response,
+            'data' => json_decode($response),
             'code' => $code,
             'time' => $time
         ];

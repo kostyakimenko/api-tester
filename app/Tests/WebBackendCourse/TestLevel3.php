@@ -34,7 +34,7 @@ class TestLevel3 extends TestAbstract
         $this->testGetBooksWithModeAndSearch(10, 'all', 'programming');
         $this->testGetBooksWithModeAndSearch(10, 'all', 'code');
 
-        $this->printFinishResult();
+        $this->printResult();
     }
 
     private function testGetBooksWithModeAndSearch(int $count, string $mode, string $search = '')
@@ -51,6 +51,7 @@ class TestLevel3 extends TestAbstract
             'search' => $search
         ]);
 
-        $this->assertResponseStatus($response['code'], 200);
+        $this->assertStatus($response['code'], 200);
+        $this->assertData($response['data'], []);
     }
 }

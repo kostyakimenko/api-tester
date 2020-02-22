@@ -20,23 +20,34 @@ abstract class TestAbstract
 
     abstract public function run();
 
-    protected function printFinishResult()
+    protected function printResult()
     {
-        Log::result('All test: ' . $this->testCount);
-        Log::result('Passed test: ' . ($this->testCount - $this->errorCount));
+        Log::result('All tests: ' . $this->testCount);
+        Log::result('Passed tests: ' . ($this->testCount - $this->errorCount));
     }
 
-    protected function assertResponseStatus(int $actual, int $expected)
+    protected function assertStatus(int $actual, int $expected)
+    {
+        $logMessage = "expected status: $expected; actual status: $actual";
+        $this->handleResult($logMessage, $actual, $expected);
+    }
+
+    protected function assertData(?array $actual, array $expected)
+    {
+        $actualStr = json_encode($actual);
+        $expectedStr = json_encode($expected);
+        $logMessage = "expected data: $expectedStr; actual data: $actualStr";
+        $this->handleResult($logMessage, $actual, $expected);
+    }
+
+    private function handleResult(string $message, $actual, $expected)
     {
         $this->testCount++;
 
-        Log::info('Checking response status...');
-        $logMessage = "expected: $expected; actual: $actual";
-
         if ($actual === $expected) {
-            Log::success($logMessage);
+            Log::success($message);
         } else {
-            Log::error($logMessage);
+            Log::error($message);
             $this->errorCount++;
         }
     }
