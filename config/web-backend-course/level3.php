@@ -18,5 +18,7 @@ return [
         'getEventByAdmin' => '/admin/api/v1/events/:eventId',
         'updateEventByAdmin' => '/admin/api/v1/events/:eventId/update',
         'takeBookByAdmin' => '/admin/api/v1/books/:bookId/take'
-    ]
+    ],
+
+    'pathToCookie' => '/tmp/web-backend-level3.txt'
 ];

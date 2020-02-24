@@ -48,7 +48,14 @@ abstract class TestAbstract
 
     protected function printResult()
     {
+        Log::delimiter();
         Log::result('All tests: ' . $this->testCount);
         Log::result('Passed tests: ' . ($this->testCount - $this->errorCount));
+    }
+
+    protected function printHeader(string $header)
+    {
+        Log::delimiter();
+        Log::info($header);
     }
 }

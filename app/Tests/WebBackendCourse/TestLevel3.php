@@ -42,10 +42,11 @@ class TestLevel3 extends TestAbstract
         $mainText = "Test: get $count books with '$mode' mode";
         $searchText = $search ? " and search '$search'" : null;
 
-        Log::info($mainText . $searchText);
+        $this->printHeader($mainText . $searchText);
 
         $url = $this->config['domain'] . $this->config['endpoints']['getBooks'];
-        $response = $this->client->sendRequest('GET', $url, [
+
+        $response = $this->client->sendRequest('GET', $url, $this->config['pathToCookie'], [
             'count' => $count,
             'mode' => $mode,
             'search' => $search
@@ -53,7 +54,5 @@ class TestLevel3 extends TestAbstract
 
         $this->assertStatus($response['code'], 200);
         $this->assertData($response['data'], []);
-
-        Log::delimiter();
     }
 }

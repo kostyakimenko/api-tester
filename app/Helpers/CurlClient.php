@@ -13,11 +13,11 @@ class CurlClient implements ClientInterface
      * @param string $url
      * @param string $method
      * @param array $data
-     * @param array $cookies
+     * @param array $pathToCookie
      * @return array
      * @throws Exception
      */
-    public function sendRequest(string $method, string $url, array $data = [], array $cookies = [])
+    public function sendRequest(string $method, string $url, string $pathToCookie, array $data = [])
     {
         switch ($method) {
             case 'POST':
@@ -32,8 +32,14 @@ class CurlClient implements ClientInterface
                 throw new Exception('Method not allowed');
         }
 
+        if (!file_exists($pathToCookie)) {
+            mkdir($pathToCookie);
+        }
+
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_COOKIEFILE, $pathToCookie);
+        curl_setopt($curl, CURLOPT_COOKIEJAR, $pathToCookie);
 
         $response = curl_exec($curl);
         $code = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
@@ -42,7 +48,7 @@ class CurlClient implements ClientInterface
         curl_close($curl);
 
         return [
-            'data' => json_decode($response),
+            'data' => json_decode($response, true),
             'code' => $code,
             'time' => $time
         ];
