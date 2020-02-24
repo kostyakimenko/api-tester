@@ -1,4 +1,4 @@
-# Api tester
+# API tester
 
 ### Requirements
 * php version >= 7.2 + cURL
