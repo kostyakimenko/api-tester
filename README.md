@@ -37,7 +37,7 @@
        private $client;
        private $config;
        
-       public function __construct(ClientInterface $client, TesterConfigInterface)
+       public function __construct(ClientInterface $client, TesterConfigInterface $config)
        {
            $this->client = $client;
            $this->config = $config;
