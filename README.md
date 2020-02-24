@@ -5,7 +5,9 @@
 
 ### How it works?
 1. Add config file for test in `config` directory.
+
    Example: `config/web-backend-course/level1.php`
+   
    ``` 
    <?php
     
@@ -19,7 +21,9 @@
    ```
 
 2. Create test class in `app/Tests` directory, extending TestAbstract. 
+   
    Example: `app/Tests/WebBackendCourse/TestLevel1`
+   
    ```
    <?php
    
@@ -53,7 +57,9 @@
    
    
 3. Add data about test for main config `config/tests.php`
+   
    Example:
+   
    ```
    <?php
    
