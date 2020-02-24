@@ -5,6 +5,7 @@ namespace app\Tests\WebBackendCourse;
 
 
 use app\Contracts\ClientInterface;
+use app\Contracts\TesterConfigInterface;
 use app\Helpers\Log;
 use app\Tests\TestAbstract;
 
@@ -16,11 +17,11 @@ class TestLevel3 extends TestAbstract
     private $client;
 
     /**
-     * @var array
+     * @var TesterConfigInterface
      */
     private $config;
 
-    public function __construct(ClientInterface $client, array $config)
+    public function __construct(ClientInterface $client, TesterConfigInterface $config)
     {
         $this->client = $client;
         $this->config = $config;
@@ -39,8 +40,8 @@ class TestLevel3 extends TestAbstract
         $bookId = 1;
         $this->printHeader("Test: get book with correct id ($bookId)");
 
-        $url = $this->config['domain'] . $this->config['endpoints']['getBooks'] . $bookId;
-        $pathToCookie = $this->config['pathToCookie'];
+        $url = $this->config->get('domain') . $this->config->get('endpoints.getSingleBook', ['bookId' => $bookId]);
+        $pathToCookie = $this->config->get('pathToCookie');
 
         $response = $this->client->sendRequest('GET', $url, $pathToCookie);
 
@@ -53,8 +54,8 @@ class TestLevel3 extends TestAbstract
         $bookId = '%&542dshg';
         $this->printHeader("Test: get book with wrong id ($bookId)");
 
-        $url = $this->config['domain'] . $this->config['endpoints']['getBooks'] . $bookId;
-        $pathToCookie = $this->config['pathToCookie'];
+        $url = $this->config->get('domain') . $this->config->get('endpoints.getSingleBook', ['bookId' => $bookId]);
+        $pathToCookie = $this->config->get('pathToCookie');
 
         $response = $this->client->sendRequest('GET', $url, $pathToCookie);
 

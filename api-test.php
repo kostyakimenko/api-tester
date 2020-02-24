@@ -6,7 +6,7 @@ spl_autoload_register(function($class) {
 });
 
 use app\Helpers\Log;
-use app\Tests\TestFactory;
+use app\Factories\TestCreator;
 
 $testName = $argv[2] ?? null;
 
@@ -14,7 +14,7 @@ if (!$testName) {
     Log::error('Test not specified in params');
 } else {
     try {
-        TestFactory::make($testName)->run();
+        TestCreator::create($testName)->run();
     } catch (Exception $exception) {
         Log::error($exception->getMessage());
     }

@@ -1,13 +1,16 @@
 <?php
 
 
-namespace app\Helpers;
+namespace app\Factories;
 
 
 use app\Application;
+use app\Contracts\TesterConfigInterface;
+use app\Helpers\TesterConfig;
 use app\Singleton;
+use Exception;
 
-class Config extends Singleton
+class ConfigCreator extends Singleton
 {
     /**
      * @var array
@@ -24,9 +27,15 @@ class Config extends Singleton
         return $this->config[$testName]['tester'] ?? null;
     }
 
-    public function getTesterConfig(string $testName)
+    public function createTesterConfig(string $testName): TesterConfigInterface
     {
-        return $this->config[$testName]['config'] ?? null;
+        $configData = $this->config[$testName]['config'] ?? null;
+
+        if (!$configData) {
+            throw new Exception('Invalid config for ' . $testName);
+        }
+
+        return new TesterConfig($this->config[$testName]['config']);
     }
 
     private function parseConfigFiles()
