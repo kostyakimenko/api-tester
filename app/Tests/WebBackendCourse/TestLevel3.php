@@ -28,31 +28,37 @@ class TestLevel3 extends TestAbstract
 
     public function run()
     {
-        $this->testGetBooksWithModeAndSearch(10, 'new');
-        $this->testGetBooksWithModeAndSearch(10, 'popular');
-        $this->testGetBooksWithModeAndSearch(10, 'all');
-        $this->testGetBooksWithModeAndSearch(10, 'all', 'programming');
-        $this->testGetBooksWithModeAndSearch(10, 'all', 'code');
+        $this->testGetBookWithCorrectId();
+        $this->testGetBookWithWrongId();
 
         $this->printResult();
     }
 
-    private function testGetBooksWithModeAndSearch(int $count, string $mode, string $search = '')
+    private function testGetBookWithCorrectId()
     {
-        $mainText = "Test: get $count books with '$mode' mode";
-        $searchText = $search ? " and search '$search'" : null;
+        $bookId = 1;
+        $this->printHeader("Test: get book with correct id ($bookId)");
 
-        $this->printHeader($mainText . $searchText);
+        $url = $this->config['domain'] . $this->config['endpoints']['getBooks'] . $bookId;
+        $pathToCookie = $this->config['pathToCookie'];
 
-        $url = $this->config['domain'] . $this->config['endpoints']['getBooks'];
-
-        $response = $this->client->sendRequest('GET', $url, $this->config['pathToCookie'], [
-            'count' => $count,
-            'mode' => $mode,
-            'search' => $search
-        ]);
+        $response = $this->client->sendRequest('GET', $url, $pathToCookie);
 
         $this->assertStatus($response['code'], 200);
-        $this->assertData($response['data'], []);
+        $this->assertData($response['data'], []); // todo add expected response data
+    }
+
+    private function testGetBookWithWrongId()
+    {
+        $bookId = '%&542dshg';
+        $this->printHeader("Test: get book with wrong id ($bookId)");
+
+        $url = $this->config['domain'] . $this->config['endpoints']['getBooks'] . $bookId;
+        $pathToCookie = $this->config['pathToCookie'];
+
+        $response = $this->client->sendRequest('GET', $url, $pathToCookie);
+
+        $this->assertStatus($response['code'], 400);
+        $this->assertData($response['data'], []); // todo add expected response data
     }
 }
