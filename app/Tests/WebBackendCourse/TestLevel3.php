@@ -6,10 +6,9 @@ namespace app\Tests\WebBackendCourse;
 
 use app\Contracts\ClientInterface;
 use app\Contracts\TesterConfigInterface;
-use app\Helpers\Log;
-use app\Tests\TestAbstract;
+use app\Tests\AbstractTest;
 
-class TestLevel3 extends TestAbstract
+class TestLevel3 extends AbstractTest
 {
     /**
      * @var ClientInterface

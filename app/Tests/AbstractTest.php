@@ -6,7 +6,7 @@ namespace app\Tests;
 
 use app\Helpers\Log;
 
-abstract class TestAbstract
+abstract class AbstractTest
 {
     /**
      * @var int

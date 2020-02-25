@@ -4,9 +4,9 @@
 namespace app\Tests\WebBackendCourse;
 
 
-use app\Tests\TestAbstract;
+use app\Tests\AbstractTest;
 
-class TestLevel1 extends TestAbstract
+class TestLevel1 extends AbstractTest
 {
     public function run()
     {
