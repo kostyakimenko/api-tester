@@ -20,7 +20,7 @@
    ];
    ```
 
-2. Create test class in `app/Tests` directory, extending TestAbstract. 
+2. Create test class in `app/Tests` directory, extending AbstractTest. 
    
    Example: `app/Tests/WebBackendCourse/TestLevel1`
    
@@ -32,7 +32,7 @@
    use app\Contracts\ClientInterface;  
    use app\Contracts\TesterConfigInterface;
    
-   class TestLevel1 extends TestAbstract
+   class TestLevel1 extends AbstractTest
    {
        private $client;
        private $config;
