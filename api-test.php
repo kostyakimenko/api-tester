@@ -20,4 +20,3 @@ try {
 } catch (Exception $exception) {
     Log::error($exception->getMessage());
 }
-
